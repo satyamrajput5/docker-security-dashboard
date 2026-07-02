@@ -136,4 +136,3 @@ def get_security():
 
     return issues
 
-get_security()
