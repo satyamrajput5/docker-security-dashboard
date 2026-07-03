@@ -4,7 +4,7 @@ from pprint import pprint #for debugging and exploring
 client = docker.from_env()
 
 def get_running_containers():
-    containers = client.containers.list()
+    containers = client.containers.list(all=True)
 
     result = []
 
@@ -142,3 +142,13 @@ def stop_container(container_id):
     container.stop()
 
     return{"message": "Container stopped successfully"}
+
+def start_container(container_id):
+    container = client.containers.get(container_id)
+    container.start()
+    return{"message": "Container started"}
+
+def restart_container(container_id):
+    container = client.containers.get(container_id)
+    container.restart()
+    return {"message": "Container restarted"}

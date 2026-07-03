@@ -13,11 +13,31 @@ export async function getContainers() {
 
 }
 
-export async function stopContainer(container_id){
+export async function stopContainer(containerId){
     const response = await fetch(`http://127.0.0.1:8000/containers/${containerId}/stop`,
         {
             method: "POST",
         }
     );
+    return await response.json();
+}
+
+export async function startContainer(containerId){
+    const response = await fetch(`http://127.0.0.1:8000/containers/${containerId}/start`,
+        {
+        method: "POST",
+        }
+    );
+    return await response.json();
+}
+
+export async function restartContainer(containerId) {
+    const response = await fetch(
+        `http://127.0.0.1:8000/containers/${containerId}/restart`,
+        {
+            method: "POST",
+        }
+    );
+
     return await response.json();
 }

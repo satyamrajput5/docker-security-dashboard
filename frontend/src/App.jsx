@@ -1,6 +1,6 @@
 import Navbar from "./components/Navbar";
 import { useState, useEffect } from "react";
-import { getSummary, getContainers, stopContainer } from "./services/api";
+import { getSummary, getContainers, stopContainer, startContainer, restartContainer } from "./services/api";
 import SummaryCard from "./components/SummaryCard";
 import ContainerTable from "./components/ContainerTable";
 import "./App.css"
@@ -28,6 +28,23 @@ function App() {
     await loadData();
 }
 
+async function handleStart(containerId) {
+  await startContainer(containerId);
+  await loadData();
+}
+
+async function handleRestart(containerId) {
+  try {
+      const response = await restartContainer(containerId);
+
+      console.log(response.message);
+
+      await loadData();
+  } catch (error) {
+      console.error("Failed to restart container:", error);
+  }
+}
+
   return (
     <>
       <Navbar />
@@ -36,7 +53,12 @@ function App() {
           <SummaryCard title="Total Containers" value={summary.total}/>
           <SummaryCard title="Running" value={summary.running} />
           <SummaryCard title="Stopped" value={summary.stopped} />
-          <ContainerTable containers={containers}/>
+          <ContainerTable 
+          containers={containers}
+          onStop={handleStop}
+          onStart={handleStart}
+          onRestart={handleRestart}
+          />
         </div>
     )}
     </>

@@ -1,4 +1,4 @@
-function ContainerTable({containers}) {
+function ContainerTable({containers, onStop, onStart, onRestart}) {
 
     return (
         <>
@@ -27,10 +27,22 @@ function ContainerTable({containers}) {
                                 </span>
                                 </td>
                                 <td>
-                                <button onClick={() => onStop(container.id)}>
-                                    Stop
-                                </button>
-                                </td>
+                                {container.status === "running" ? (
+                                    <>
+                                        <button onClick={() => onStop(container.id)}>
+                                            Stop
+                                        </button>
+
+                                        <button onClick={() => onRestart(container.id)}>
+                                            Restart
+                                        </button>
+                                    </>
+                                ) : (
+                                    <button onClick={() => onStart(container.id)}>
+                                        Start
+                                    </button>
+                                )}
+                            </td>
                             </tr>
                         ))}
                     </tbody>
