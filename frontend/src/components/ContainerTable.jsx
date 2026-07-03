@@ -7,6 +7,7 @@ function ContainerTable({containers}) {
                         <tr>
                             <th>Name</th>
                             <th>Status</th>
+                            <th>Actions</th>
                         </tr>
                     </thead>
 
@@ -24,6 +25,11 @@ function ContainerTable({containers}) {
                                     >
                                     {container.status}
                                 </span>
+                                </td>
+                                <td>
+                                <button onClick={() => onStop(container.id)}>
+                                    Stop
+                                </button>
                                 </td>
                             </tr>
                         ))}

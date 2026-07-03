@@ -1,6 +1,6 @@
 import Navbar from "./components/Navbar";
 import { useState, useEffect } from "react";
-import { getSummary, getContainers } from "./services/api";
+import { getSummary, getContainers, stopContainer } from "./services/api";
 import SummaryCard from "./components/SummaryCard";
 import ContainerTable from "./components/ContainerTable";
 import "./App.css"
@@ -12,17 +12,21 @@ function App() {
 
   const [containers, setContainers] = useState([]);
 
+  async function loadData() {
+      const summaryData = await getSummary();
+      setSummary(summaryData);
+      const containerData = await getContainers();
+      setContainers(containerData)
+  }
+
   useEffect(() => {
-    async function loadData() {
-        const summaryData = await getSummary();
-        setSummary(summaryData);
-
-        const containerData = await getContainers();
-        setContainers(containerData)
-    }
-
     loadData();
   }, []);
+
+  async function handleStop(containerId) {
+    await stopContainer(containerId);
+    await loadData();
+}
 
   return (
     <>

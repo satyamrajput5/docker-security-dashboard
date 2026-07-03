@@ -1,5 +1,5 @@
 from fastapi import FastAPI
-from docker_service import get_running_containers, get_summary, get_images, get_system, get_volumes, get_networks,get_security
+from docker_service import get_running_containers, get_summary, get_images, get_system, get_volumes, get_networks, get_security, stop_container
 from fastapi.middleware.cors import CORSMiddleware
 
 app = FastAPI()
@@ -54,3 +54,7 @@ def networks():
 @app.get("/security")
 def security():
     return get_security()
+
+@app.post("/containers/{container_id}/stop")
+def stop(container_id: str):
+    return stop_container(container_id)

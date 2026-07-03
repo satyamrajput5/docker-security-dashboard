@@ -13,3 +13,11 @@ export async function getContainers() {
 
 }
 
+export async function stopContainer(container_id){
+    const response = await fetch(`http://127.0.0.1:8000/containers/${containerId}/stop`,
+        {
+            method: "POST",
+        }
+    );
+    return await response.json();
+}

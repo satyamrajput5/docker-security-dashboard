@@ -10,7 +10,8 @@ def get_running_containers():
 
     for container in containers:
         result.append({"name" : container.name,
-                       "status" : container.status})
+                       "status" : container.status,
+                       "id": container.short_id})
         
     return result
 
@@ -136,3 +137,8 @@ def get_security():
 
     return issues
 
+def stop_container(container_id):
+    container = client.containers.get(container_id)
+    container.stop()
+
+    return{"message": "Container stopped successfully"}
