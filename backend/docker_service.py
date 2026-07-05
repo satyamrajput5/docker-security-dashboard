@@ -9,9 +9,37 @@ def get_running_containers():
     result = []
 
     for container in containers:
+        
+        stats = container.stats(stream=False)
+
+        memory_mb = 0
+        cpu_percent = 0
+
+        if container.status == "running":
+            stats = container.stats(stream=False)
+
+            memory_usage = stats.get("memory_stats", {}).get("usage", 0)
+            memory_mb = round(memory_usage / (1024 * 1024), 2)
+
+            cpu_stats = stats.get("cpu_stats", {})
+            precpu_stats = stats.get("precpu_stats", {})
+
+            cpu_delta = (cpu_stats.get("cpu_usage", {}).get("total_usage", 0) - precpu_stats.get("cpu_usage", {}).get("total_usage", 0))
+
+            system_delta = ( cpu_stats.get("system_cpu_usage", 0) - precpu_stats.get("system_cpu_usage", 0))
+
+            online_cpus = cpu_stats.get("online_cpus", 1)
+
+            if system_delta > 0 and cpu_delta > 0:
+                cpu_percent = round((cpu_delta / system_delta) * online_cpus * 100, 2,)
+            else:
+                cpu_percent = 0
+
         result.append({"name" : container.name,
                        "status" : container.status,
-                       "id": container.short_id})
+                       "id": container.short_id,
+                       "memory": memory_mb,
+                       "cpu": cpu_percent})
         
     return result
 
@@ -39,11 +67,15 @@ def get_images():
     result = []
 
     for image in images:
+
+        tags = image.tags if image.tags else ["<none>:<none>"]
+
         result.append({
             "id": image.short_id,
-            "tag": image.tags
+            "tag": tags[0],
+            "size": round(image.attrs["Size"] / (1024 * 1024), 2)
         })
-    
+
     return result
 
 def get_system():
@@ -152,3 +184,11 @@ def restart_container(container_id):
     container = client.containers.get(container_id)
     container.restart()
     return {"message": "Container restarted"}
+
+def delete_container(container_id):
+    container = client.containers.get(container_id)
+    container.remove(force=True)
+
+    return {
+        "message": "Container deleted"
+    }

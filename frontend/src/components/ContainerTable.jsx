@@ -1,4 +1,4 @@
-function ContainerTable({containers, onStop, onStart, onRestart}) {
+function ContainerTable({containers, onStop, onStart, onRestart, onDelete}) {
 
     return (
         <>
@@ -7,6 +7,8 @@ function ContainerTable({containers, onStop, onStart, onRestart}) {
                         <tr>
                             <th>Name</th>
                             <th>Status</th>
+                            <th>Memory</th>
+                            <th>CPU</th>
                             <th>Actions</th>
                         </tr>
                     </thead>
@@ -27,6 +29,12 @@ function ContainerTable({containers, onStop, onStart, onRestart}) {
                                 </span>
                                 </td>
                                 <td>
+                                    {container.memory} MB
+                                </td>
+                                <td>
+                                    {container.cpu}%
+                                </td>
+                                <td>
                                 {container.status === "running" ? (
                                     <>
                                         <button onClick={() => onStop(container.id)}>
@@ -42,9 +50,15 @@ function ContainerTable({containers, onStop, onStart, onRestart}) {
                                         Start
                                     </button>
                                 )}
+
+                                <button onClick ={() => onDelete(container.id)}>
+                                    Delete
+                                </button>
+
                             </td>
                             </tr>
                         ))}
+                        
                     </tbody>
                 </table>
         </>

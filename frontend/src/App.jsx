@@ -1,6 +1,6 @@
 import Navbar from "./components/Navbar";
 import { useState, useEffect } from "react";
-import { getSummary, getContainers, stopContainer, startContainer, restartContainer } from "./services/api";
+import { getSummary, getContainers, stopContainer, startContainer, restartContainer, deleteContainer } from "./services/api";
 import SummaryCard from "./components/SummaryCard";
 import ContainerTable from "./components/ContainerTable";
 import "./App.css"
@@ -21,7 +21,13 @@ function App() {
 
   useEffect(() => {
     loadData();
-  }, []);
+
+    const interval = setInterval(() => {
+        loadData();
+    }, 5000);
+
+    return () => clearInterval(interval);
+    }, []);
 
   async function handleStop(containerId) {
     await stopContainer(containerId);
@@ -45,6 +51,19 @@ async function handleRestart(containerId) {
   }
 }
 
+async function handleDelete(containerId) {
+  const confirmed = window.confirm(
+      "Are you sure you want to delete this container?"
+  );
+
+  if (!confirmed) {
+      return;
+  }
+
+  await deleteContainer(containerId);
+  await loadData();
+}
+
   return (
     <>
       <Navbar />
@@ -58,6 +77,7 @@ async function handleRestart(containerId) {
           onStop={handleStop}
           onStart={handleStart}
           onRestart={handleRestart}
+          onDelete={handleDelete}
           />
         </div>
     )}

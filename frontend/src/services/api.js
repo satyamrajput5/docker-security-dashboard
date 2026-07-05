@@ -38,6 +38,15 @@ export async function restartContainer(containerId) {
             method: "POST",
         }
     );
+    return await response.json();
+}
 
+export async function deleteContainer(containerId) {
+    const response = await fetch(
+        `http://127.0.0.1:8000/containers/${containerId}/delete`,
+        {
+            method: "POST",
+        }
+    );
     return await response.json();
 }
