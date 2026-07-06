@@ -62,3 +62,13 @@ export async function getSecurity() {
     const response = await fetch("http://127.0.0.1:8000/security");
     return await response.json();
 }
+
+export async function getNetworks() {
+    const response = await fetch("http://127.0.0.1:8000/networks");
+    return await response.json();
+}
+
+export async function getVolumes() {
+    const response = await fetch(`http://127.0.0.1:8000/volumes`);
+    return await response.json();
+}
