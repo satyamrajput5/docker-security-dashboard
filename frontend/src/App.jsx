@@ -1,9 +1,10 @@
 import Navbar from "./components/Navbar";
 import { useState, useEffect } from "react";
-import { getSummary, getContainers, stopContainer, startContainer, restartContainer, deleteContainer, getImages } from "./services/api";
+import { getSummary, getContainers, stopContainer, startContainer, restartContainer, deleteContainer, getImages, getSecurity } from "./services/api";
 import SummaryCard from "./components/SummaryCard";
 import ContainerTable from "./components/ContainerTable";
 import ImageTable from "./components/ImageTable";
+import SecurityTable from "./components/SecurityTable";
 import "./App.css"
 import"./components/ContainerTable.css"
 
@@ -15,6 +16,8 @@ function App() {
 
   const [images, setImages] = useState([]);
 
+  const [security, setSecurity] = useState([]);
+
   async function loadData() {
       const summaryData = await getSummary();
       setSummary(summaryData);
@@ -24,6 +27,9 @@ function App() {
 
       const imageData = await getImages();
       setImages(imageData);
+
+      const securityData = await getSecurity();
+      setSecurity(securityData);
   }
 
   useEffect(() => {
@@ -86,9 +92,16 @@ async function handleDelete(containerId) {
           onRestart={handleRestart}
           onDelete={handleDelete}
           />
+          <div className="images-section">
           <h2>Docker Images</h2>
-          <ImageTable images={images}/>
 
+          <ImageTable images={images} />
+        </div>
+
+        <div className="security-section">
+        <h2>Container Security</h2>
+        <SecurityTable security={security}/>
+        </div>
         </div>
     )}
     </>

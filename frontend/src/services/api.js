@@ -57,3 +57,8 @@ export async function getImages() {
     
     return await response.json();
 }
+
+export async function getSecurity() {
+    const response = await fetch("http://127.0.0.1:8000/security");
+    return await response.json();
+}
