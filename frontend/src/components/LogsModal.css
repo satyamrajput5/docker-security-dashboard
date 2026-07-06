@@ -1,0 +1,48 @@
+.modal-overlay{
+    position:fixed;
+    inset:0;
+    background:rgba(0,0,0,.7);
+
+    display:flex;
+    justify-content:center;
+    align-items:center;
+
+    z-index:1000;
+}
+
+.modal{
+    width:900px;
+    max-height:80vh;
+
+    background:#1e293b;
+
+    border-radius:12px;
+
+    padding:20px;
+}
+
+.modal-header{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+
+    margin-bottom:15px;
+}
+
+.logs-box {
+    background: #111827;
+    color: #e5e7eb;
+
+    padding: 16px;
+    border-radius: 8px;
+
+    max-height: 450px;
+    overflow-y: auto;
+    overflow-x: auto;
+
+    white-space: pre-wrap;
+    word-break: break-word;
+
+    font-family: monospace;
+    font-size: 14px;
+}

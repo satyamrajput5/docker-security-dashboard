@@ -1,11 +1,12 @@
 import Navbar from "./components/Navbar";
 import { useState, useEffect } from "react";
-import { getSummary, getContainers, stopContainer, startContainer, restartContainer, deleteContainer, getImages, getSecurity, getVolumes, getNetworks } from "./services/api";
+import { getSummary, getContainers, stopContainer, startContainer, restartContainer, deleteContainer, getImages, getSecurity, getVolumes, getNetworks, getContainerLogs } from "./services/api";
 import SummaryCard from "./components/SummaryCard";
 import ContainerTable from "./components/ContainerTable";
 import ImageTable from "./components/ImageTable";
 import SecurityTable from "./components/SecurityTable";
 import NetworkTable from "./components/NetworkTable";
+import LogsModal from "./components/LogsModal";
 import "./App.css"
 import"./components/ContainerTable.css"
 import VolumeTable from "./components/VolumeTable";
@@ -23,6 +24,10 @@ function App() {
   const [networks, setNetworks] = useState([]);
 
   const [volumes, setVolumes] = useState([]);
+
+  const [logs, setLogs] = useState("");
+
+  const [showLogs, setShowLogs] = useState(false);
 
   async function loadData() {
       const summaryData = await getSummary();
@@ -42,6 +47,7 @@ function App() {
 
       const volumeData = await getVolumes(); 
       setVolumes(volumeData);
+      
   }
 
   useEffect(() => {
@@ -89,6 +95,13 @@ async function handleDelete(containerId) {
   await loadData();
 }
 
+async function handleLogs(containerId) {
+  const data = await getContainerLogs(containerId);
+
+  setLogs(data.logs);
+  setShowLogs(true);
+}
+
   return (
     <>
       <Navbar />
@@ -103,6 +116,7 @@ async function handleDelete(containerId) {
           onStart={handleStart}
           onRestart={handleRestart}
           onDelete={handleDelete}
+          onLogs={handleLogs}
           />
           <div className="images-section">
           <h2>Docker Images</h2>
@@ -116,10 +130,19 @@ async function handleDelete(containerId) {
         </div>
         <h2>Docker Networks</h2>
         <NetworkTable networks={networks} />
-        
+
         <VolumeTable volumes={volumes}/>
+
         </div>
     )}
+
+        {showLogs && (
+        <LogsModal
+          logs={logs}
+          onClose={() => setShowLogs(false)}
+        />
+      )}
+
     </>
   );
 }

@@ -1,5 +1,5 @@
 from fastapi import FastAPI
-from docker_service import get_running_containers, get_summary, get_images, get_system, get_volumes, get_networks, get_security, stop_container, start_container, restart_container, delete_container
+from docker_service import get_running_containers, get_summary, get_images, get_system, get_volumes, get_networks, get_security, stop_container, start_container, restart_container, delete_container, get_container_logs
 from fastapi.middleware.cors import CORSMiddleware
 
 app = FastAPI()
@@ -70,3 +70,7 @@ def restart(container_id: str):
 @app.post("/containers/{container_id}/delete")
 def delete(container_id: str):
     return delete_container(container_id)
+
+@app.get("/containers/{container_id}/logs")
+def container_logs(container_id: str):
+    return get_container_logs(container_id)

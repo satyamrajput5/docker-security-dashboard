@@ -1,4 +1,4 @@
-function ContainerTable({ containers, onStop, onStart, onRestart, onDelete }) {
+function ContainerTable({ containers, onStop, onStart, onRestart, onDelete, onLogs }) {
     return (
         <table>
             <thead>
@@ -62,6 +62,12 @@ function ContainerTable({ containers, onStop, onStart, onRestart, onDelete }) {
                                     onClick={() => onDelete(container.id)}
                                 >
                                     Delete
+                                </button>
+
+                                <button
+                                className="logs-btn"
+                                onClick={() => onLogs(container.id)}>
+                                Logs
                                 </button>
                             </div>
                         </td>

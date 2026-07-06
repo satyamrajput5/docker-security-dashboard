@@ -192,3 +192,21 @@ def delete_container(container_id):
     return {
         "message": "Container deleted"
     }
+
+def get_container_logs(container_id):
+    try:
+        container = client.containers.get(container_id)
+
+        logs = container.logs(
+            tail=100,
+            timestamps=False
+        ).decode("utf-8", errors="ignore")
+
+        return {
+            "logs": logs
+        }
+
+    except Exception as e:
+        return {
+            "logs": f"Error: {str(e)}"
+        }

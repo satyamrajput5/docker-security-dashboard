@@ -72,3 +72,11 @@ export async function getVolumes() {
     const response = await fetch(`http://127.0.0.1:8000/volumes`);
     return await response.json();
 }
+
+export async function getContainerLogs(containerId) {
+    const response = await fetch(
+        `http://127.0.0.1:8000/containers/${containerId}/logs`
+    );
+
+    return await response.json();
+}
