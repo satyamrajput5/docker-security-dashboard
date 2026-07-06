@@ -39,9 +39,10 @@ h1 {
 }
 
 table {
-  width: 80%;
-  margin: 20px auto;
+  width: 100%;
   border-collapse: collapse;
+  border-radius: 12px;
+  overflow: hidden;
 }
 
 th,
@@ -57,4 +58,18 @@ th {
 
 td {
   color: #d1d5db;
+}
+
+.images-section {
+  margin-top: 60px;
+}
+
+.images-section h2 {
+  margin-bottom: 20px;
+  color: white;
+}
+
+tbody tr:hover {
+  background-color: rgba(255, 255, 255, 0.05);
+  transition: 0.2s;
 }

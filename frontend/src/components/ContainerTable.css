@@ -13,3 +13,65 @@
     border-radius: 20px;
     font-weight: bold;
 }
+
+.start-btn {
+    background: #22c55e;
+    color: white;
+    border: none;
+    padding: 8px 14px;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+.stop-btn {
+    background: #ee9241;
+    color: white;
+    border: none;
+    padding: 8px 14px;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+.restart-btn {
+    background: #6a98e3;
+    color: white;
+    border: none;
+    padding: 8px 14px;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+.delete-btn {
+    background: #f45e5e;
+    color: white;
+    border: none;
+    padding: 8px 14px;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+.start-btn:hover {
+    background: #2bd56a;
+}
+
+.stop-btn:hover {
+    background: #f46c2d;
+}
+
+.restart-btn:hover {
+    background: #6892ec;
+}
+
+.delete-btn:hover {
+    background: #e43333;
+}
+
+.action-buttons {
+    display: flex;
+    gap: 8px;         
+    align-items: center;
+}
+
+.action-buttons button {
+    padding: 8px 14px;
+}

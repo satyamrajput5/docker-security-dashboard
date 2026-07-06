@@ -1,8 +1,9 @@
 import Navbar from "./components/Navbar";
 import { useState, useEffect } from "react";
-import { getSummary, getContainers, stopContainer, startContainer, restartContainer, deleteContainer } from "./services/api";
+import { getSummary, getContainers, stopContainer, startContainer, restartContainer, deleteContainer, getImages } from "./services/api";
 import SummaryCard from "./components/SummaryCard";
 import ContainerTable from "./components/ContainerTable";
+import ImageTable from "./components/ImageTable";
 import "./App.css"
 import"./components/ContainerTable.css"
 
@@ -12,11 +13,17 @@ function App() {
 
   const [containers, setContainers] = useState([]);
 
+  const [images, setImages] = useState([]);
+
   async function loadData() {
       const summaryData = await getSummary();
       setSummary(summaryData);
+
       const containerData = await getContainers();
       setContainers(containerData)
+
+      const imageData = await getImages();
+      setImages(imageData);
   }
 
   useEffect(() => {
@@ -79,6 +86,9 @@ async function handleDelete(containerId) {
           onRestart={handleRestart}
           onDelete={handleDelete}
           />
+          <h2>Docker Images</h2>
+          <ImageTable images={images}/>
+
         </div>
     )}
     </>
