@@ -1,5 +1,7 @@
 function NetworkTable({ networks }) {
     return (
+        <>
+        <h2>Docker Networks</h2>
         <table>
             <thead>
                 <tr>
@@ -19,6 +21,7 @@ function NetworkTable({ networks }) {
                 ))}
             </tbody>
         </table>
+        </>
     );
 }
 

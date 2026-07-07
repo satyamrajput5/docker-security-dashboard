@@ -128,11 +128,8 @@ async function handleLogs(containerId) {
         <h2>Container Security</h2>
         <SecurityTable security={security}/>
         </div>
-        <h2>Docker Networks</h2>
         <NetworkTable networks={networks} />
-
         <VolumeTable volumes={volumes}/>
-
         </div>
     )}
 
