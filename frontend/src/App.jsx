@@ -102,44 +102,49 @@ async function handleLogs(containerId) {
   setShowLogs(true);
 }
 
-  return (
+  rreturn (
     <>
       <Navbar />
+  
       {summary && (
-        <div className="summary-grid">
-          <SummaryCard title="Total Containers" value={summary.total}/>
-          <SummaryCard title="Running" value={summary.running} />
-          <SummaryCard title="Stopped" value={summary.stopped} />
-          <ContainerTable 
-          containers={containers}
-          onStop={handleStop}
-          onStart={handleStart}
-          onRestart={handleRestart}
-          onDelete={handleDelete}
-          onLogs={handleLogs}
+        <>
+          <div className="summary-grid">
+            <SummaryCard title="Total Containers" value={summary.total} />
+            <SummaryCard title="Running" value={summary.running} />
+            <SummaryCard title="Stopped" value={summary.stopped} />
+          </div>
+  
+          <ContainerTable
+            containers={containers}
+            onStop={handleStop}
+            onStart={handleStart}
+            onRestart={handleRestart}
+            onDelete={handleDelete}
+            onLogs={handleLogs}
           />
+  
           <div className="images-section">
-          <h2>Docker Images</h2>
-
-          <ImageTable images={images} />
-        </div>
-
-        <div className="security-section">
-        <h2>Container Security</h2>
-        <SecurityTable security={security}/>
-        </div>
-        <NetworkTable networks={networks} />
-        <VolumeTable volumes={volumes}/>
-        </div>
-    )}
-
-        {showLogs && (
+            <h2>Docker Images</h2>
+            <ImageTable images={images} />
+          </div>
+  
+          <div className="security-section">
+            <h2>Container Security</h2>
+            <SecurityTable security={security} />
+          </div>
+  
+          <NetworkTable networks={networks} />
+  
+          <VolumeTable volumes={volumes} />
+        </>
+      )}
+  
+      {showLogs && (
         <LogsModal
           logs={logs}
           onClose={() => setShowLogs(false)}
         />
       )}
-
     </>
   );
 }
