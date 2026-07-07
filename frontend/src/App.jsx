@@ -102,7 +102,7 @@ async function handleLogs(containerId) {
   setShowLogs(true);
 }
 
-  rreturn (
+  return (
     <>
       <Navbar />
   

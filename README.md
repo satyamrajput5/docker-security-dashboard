@@ -1,103 +1,137 @@
-# 🐳 Docker Security Dashboard
+# Docker Security Dashboard
 
-A modern full-stack dashboard for monitoring Docker containers, images, networks, and volumes in real time.
-
-Built with **FastAPI**, **Docker SDK**, and **React**.
+A full-stack Docker monitoring and security dashboard built with **React**, **FastAPI**, **Docker SDK**, **Nginx**, and **Docker Compose**. The dashboard provides real-time visibility into Docker containers, images, networks, volumes, security issues, and container logs through a modern web interface.
 
 ---
 
-## ✨ Features
+## Features
 
-- 📦 View all Docker containers
-- 🟢 Running vs Stopped container summary
-- 🖼️ List Docker images
-- 💾 View Docker volumes
-- 🌐 Inspect Docker networks
-- 🔄 Real-time Docker information using Docker SDK
-- ⚡ FastAPI REST API
-- ⚛️ React frontend
+- Real-time Docker container monitoring
+- Start, stop, restart, and delete containers
+- View Docker images and image sizes
+- Monitor Docker networks
+- Inspect Docker volumes
+- Display container security findings
+- View live container logs
+- Automatic dashboard refresh
+- Responsive React frontend
+- FastAPI REST API backend
+- Dockerized frontend and backend
+- Nginx production deployment
+- One-command deployment using Docker Compose
 
 ---
 
-## 🛠️ Tech Stack
-
-### Backend
-- FastAPI
-- Docker SDK for Python
-- Uvicorn
+## Tech Stack
 
 ### Frontend
+
 - React
-- Vite
+- JavaScript
+- Fetch API
 - CSS
+
+### Backend
+
+- FastAPI
+- Python
+- Docker SDK for Python
+
+### DevOps
+
+- Docker
+- Docker Compose
+- Nginx
+- AWS EC2
 
 ---
 
-## 📂 Project Structure
+## Project Structure
 
 ```
 docker-security-dashboard/
 │
 ├── backend/
-│   ├── docker_service.py
 │   ├── main.py
-│   └── requirements.txt
+│   ├── docker_service.py
+│   ├── requirements.txt
+│   └── Dockerfile
 │
 ├── frontend/
 │   ├── src/
-│   │   ├── components/
-│   │   ├── services/
-│   │   └── App.jsx
+│   ├── nginx.conf
+│   ├── Dockerfile
 │   └── package.json
 │
+├── docker-compose.yml
 └── README.md
 ```
 
 ---
 
-## 🚀 Getting Started
+## Dashboard Features
 
-### Clone the repository
+### Container Management
 
-```bash
-git clone https://github.com/satyamrajput5/docker-security-dashboard.git
-cd docker-security-dashboard
-```
+- List running and stopped containers
+- Start containers
+- Stop containers
+- Restart containers
+- Delete containers
+- View live container logs
 
-### Backend
+### Images
 
-```bash
-cd backend
+- List Docker images
+- Image tags
+- Image IDs
+- Image sizes
 
-python -m venv venv
-source venv/bin/activate      # macOS/Linux
+### Security
 
-pip install -r requirements.txt
+- Detect containers running as root
+- Display security findings with severity levels
 
-uvicorn main:app --reload
-```
+### Networks
 
-Backend runs on:
+- View Docker networks
+- Network driver
+- Network scope
 
-```
-http://127.0.0.1:8000
-```
+### Volumes
+
+- List Docker volumes
+- Driver information
+- Mount paths
+- Scope
+
+### Summary Cards
+
+- Total Containers
+- Running Containers
+- Stopped Containers
 
 ---
 
-### Frontend
+## Running Locally
+
+Clone the repository
 
 ```bash
-cd frontend
-
-npm install
-npm run dev
+git clone https://github.com/YOUR_USERNAME/docker-security-dashboard.git
+cd docker-security-dashboard
 ```
 
-Frontend runs on:
+Start the application
+
+```bash
+docker compose up --build
+```
+
+Open
 
 ```
-http://localhost:5173
+http://localhost
 ```
 
 ---
@@ -105,35 +139,79 @@ http://localhost:5173
 ## API Endpoints
 
 | Method | Endpoint | Description |
-|---------|----------|-------------|
+|----------|---------------------------|-----------------------------|
 | GET | `/summary` | Dashboard summary |
 | GET | `/containers` | List containers |
-| GET | `/images` | List images |
-| GET | `/volumes` | List volumes |
-| GET | `/networks` | List networks |
+| POST | `/containers/{id}/start` | Start container |
+| POST | `/containers/{id}/stop` | Stop container |
+| POST | `/containers/{id}/restart` | Restart container |
+| POST | `/containers/{id}/delete` | Delete container |
+| GET | `/containers/{id}/logs` | Container logs |
+| GET | `/images` | Docker images |
+| GET | `/security` | Security findings |
+| GET | `/networks` | Docker networks |
+| GET | `/volumes` | Docker volumes |
 
 ---
 
-## Roadmap
+## Docker Architecture
 
-- [x] FastAPI backend
-- [x] Docker SDK integration
-- [x] React frontend
-- [x] Dashboard summary cards
-- [ ] Container table
-- [ ] Image table
-- [ ] Volume table
-- [ ] Network table
-- [ ] Start/Stop/Restart containers
-- [ ] Live container logs
-- [ ] Resource usage charts
-- [ ] Dark dashboard UI
-- [ ] Authentication
+```
+                Browser
+                   │
+                   ▼
+             Nginx (Frontend)
+                   │
+          /api requests
+                   │
+                   ▼
+          FastAPI Backend
+                   │
+            Docker SDK
+                   │
+                   ▼
+           Docker Engine
+```
+
+---
+
+## Deployment
+
+The application is fully containerized and can be deployed using Docker Compose.
+
+Example deployment target:
+
+- AWS EC2
+- Ubuntu Server
+- Docker
+- Docker Compose
+- Nginx
+
+Run
+
+```bash
+docker compose up -d --build
+```
 
 ---
 
 ## Screenshots
 
-Coming soon.
+### Dashboard
+
+![alt text](image.png)
+![alt text](image-1.png)
 
 ---
+
+## Future Improvements
+
+- Authentication and user login
+- Real-time updates using WebSockets
+- Container metrics (CPU, Memory, Network)
+- Image vulnerability scanning
+- Prometheus integration
+- Grafana dashboards
+- Role-Based Access Control (RBAC)
+- Dark/Light themes
+- Kubernetes support
