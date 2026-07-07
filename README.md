@@ -7,18 +7,19 @@ A full-stack Docker monitoring and security dashboard built with **React**, **Fa
 ## Features
 
 - Real-time Docker container monitoring
+- Live CPU and memory usage monitoring
 - Start, stop, restart, and delete containers
-- View Docker images and image sizes
-- Monitor Docker networks
+- View live container logs
+- Monitor Docker images
+- Inspect Docker networks
 - Inspect Docker volumes
 - Display container security findings
-- View live container logs
+- Dashboard summary statistics
 - Automatic dashboard refresh
 - Responsive React frontend
 - FastAPI REST API backend
 - Dockerized frontend and backend
-- Nginx production deployment
-- One-command deployment using Docker Compose
+- Production deployment using Docker Compose, Nginx, and AWS EC2
 
 ---
 
@@ -74,6 +75,8 @@ docker-security-dashboard/
 ### Container Management
 
 - List running and stopped containers
+- Monitor CPU usage
+- Monitor memory usage
 - Start containers
 - Stop containers
 - Restart containers
@@ -160,32 +163,37 @@ http://localhost
                 Browser
                    │
                    ▼
-             Nginx (Frontend)
-                   │
-          /api requests
+         AWS EC2 (Ubuntu Server)
                    │
                    ▼
-          FastAPI Backend
-                   │
-            Docker SDK
-                   │
-                   ▼
-           Docker Engine
+             Docker Compose
+             ┌──────────────┐
+             │              │
+             ▼              ▼
+      Nginx (React)    FastAPI Backend
+                             │
+                             ▼
+                      Docker SDK
+                             │
+                             ▼
+                      Docker Engine
 ```
 
 ---
 
 ## Deployment
 
-The application is fully containerized and can be deployed using Docker Compose.
+The application is fully containerized and deployed on an AWS EC2 Ubuntu instance using Docker Compose.
 
-Example deployment target:
+Deployment stack:
 
 - AWS EC2
 - Ubuntu Server
-- Docker
+- Docker Engine
 - Docker Compose
 - Nginx
+- FastAPI
+- React
 
 Run
 
@@ -208,7 +216,6 @@ docker compose up -d --build
 
 - Authentication and user login
 - Real-time updates using WebSockets
-- Container metrics (CPU, Memory, Network)
 - Image vulnerability scanning
 - Prometheus integration
 - Grafana dashboards
